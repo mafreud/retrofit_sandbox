@@ -21,11 +21,11 @@ class _BeerClient implements BeerClient {
   String? baseUrl;
 
   @override
-  Future<List<Beer>> getAle() async {
+  Future<List<Beer>> getBeers({required beerType}) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<Beer>>(Options(
       method: 'GET',
@@ -34,32 +34,7 @@ class _BeerClient implements BeerClient {
     )
             .compose(
               _dio.options,
-              'ale',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => Beer.fromJson(i as Map<String, dynamic>))
-        .toList();
-    return value;
-  }
-
-  @override
-  Future<List<Beer>> getStouts() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<Beer>>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              'stouts',
+              beerType,
               queryParameters: queryParameters,
               data: _data,
             )

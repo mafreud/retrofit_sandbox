@@ -13,5 +13,10 @@ class BeerRepository extends _$BeerRepository {
 
   BeerClient get _beerClient => BeerClient(Dio());
 
-  Future<List<Beer>> getAle() => _beerClient.getAle();
+  Future<List<Beer>> getAle() => _beerClient.getBeers(
+        beerType: BeerType.ale.name,
+      );
+  Future<List<Beer>> getStouts() => _beerClient.getBeers(
+        beerType: BeerType.stouts.name,
+      );
 }

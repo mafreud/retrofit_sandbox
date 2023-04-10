@@ -9,9 +9,8 @@ part 'beer_client.g.dart';
 abstract class BeerClient {
   factory BeerClient(Dio dio, {String baseUrl}) = _BeerClient;
 
-  @GET("ale")
-  Future<List<Beer>> getAle();
-
-  @GET("stouts")
-  Future<List<Beer>> getStouts();
+  @GET("{beerType}")
+  Future<List<Beer>> getBeers({@Path('beerType') required String beerType});
 }
+
+enum BeerType { ale, stouts }
